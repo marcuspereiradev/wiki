@@ -3,7 +3,9 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    if params[:category].blank?
+    if params[:term].present?
+      @articles = Article.search(params[:term])
+    elsif params[:category].blank?
       @articles = Article.all.order('created_at DESC')
     else
       @category_id = Category.find_by(name: params[:category]).id

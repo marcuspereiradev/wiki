@@ -12,6 +12,15 @@
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
         = link_to "Wiki", root_path, class: "navbar-brand"
+
+        = form_tag(articles_path , method: :get, class: "") do |f|
+          = text_field_tag :term,
+            params[:term],
+            autocomplete: :off,
+            placeholder: 'Find an Article',
+            class: ""
+          = button_tag 'Search', type: 'submit'
+
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
             %li= link_to "New Article", new_article_path
